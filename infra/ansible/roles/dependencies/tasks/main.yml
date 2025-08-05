@@ -30,5 +30,7 @@
     groups: docker
     append: yes
 
-- name: Apply group changes without logout
-  shell: newgrp docker
+- name: Reload user groups
+  shell: sg docker -c "echo Success"
+  register: group_check
+  changed_when: false
