@@ -5,7 +5,7 @@ services:
     container_name: bot
     build: .
     volumes:
-      - .:/bot
+      - ./:/opt/bot
     env_file: .env
     restart: unless-stopped
     networks:

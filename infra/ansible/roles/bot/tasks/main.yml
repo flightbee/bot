@@ -12,11 +12,6 @@
     path: "{{ bot_dir }}/docker-compose.yml"
   register: compose_file
 
-- name: Fail if docker-compose file not found
-  fail:
-    msg: "docker-compose.yml not found in {{ bot_dir }}"
-  when: not compose_file.stat.exists
-
 - name: Copy .env file to server
   copy:
     src: "{{ lookup('env', 'HOME') }}/.env"
@@ -36,24 +31,4 @@
     project_src: "{{ bot_dir }}"
     build: yes
     pull: yes
-    remove_orphans: yes
     state: present
-
-#- name: Stop and remove existing containers
-#  community.docker.docker_compose:
-#    project_src: "{{ bot_dir }}"
-#    state: absent
-#  ignore_errors: yes
-
-#- name: Build and start containers
-#  community.docker.docker_compose:
-#    project_src: "{{ bot_dir }}"
-#    build: yes
-#    pull: yes
-#    remove_orphans: yes
-#    state: present
-
-#- name: Ensure containers are restarted
-#  community.docker.docker_compose:
-#    project_src: "{{ bot_dir }}"
-#    restarted: yes   
