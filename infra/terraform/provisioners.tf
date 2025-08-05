@@ -2,8 +2,8 @@ resource "null_resource" "update_inventory" {
   provisioner "local-exec" {
     command = <<EOT
       mkdir -p ../ansible/group_vars
-      echo '[all]' > ../ansible/inventory.ini
-      echo '${google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip} ansible_user=${var.ssh_user} ansible_ssh_private_key_file=${var.public_key}' >> ../ansible/inventory.ini
+      echo '[all]' > ../ansible/inventory
+      echo '${google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip} ansible_user=${var.ssh_user} ansible_ssh_private_key_file=~/.ssh/id_ed25519' >> ../ansible/inventory
       echo "---" > ../ansible/group_vars/all.yml
       echo "bot_dir: /home/${var.ssh_user}/bot" >> ../ansible/group_vars/all.yml
       echo "ansible_python_interpreter: /usr/bin/python3" >> ../ansible/group_vars/all.yml
@@ -17,7 +17,7 @@ resource "null_resource" "run_ansible" {
   provisioner "local-exec" {
     command = <<EOT
       sleep 30
-      cd ../ansible && ansible-playbook -i inventory.ini playbook.yml
+      cd ../ansible && ansible-playbook playbook.yml
     EOT
     interpreter = ["/bin/bash", "-c"]
   }
