@@ -16,5 +16,4 @@
 - name: Build and run Docker Compose
   shell: |
     cd {{ bot_dir }}
-    docker-compose down || true
     docker-compose up -d --build
