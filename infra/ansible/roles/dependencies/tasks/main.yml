@@ -4,6 +4,7 @@
     name:
       - docker.io
       - docker-compose
+      - git
     state: present
     update_cache: yes
 

@@ -1,17 +1,32 @@
 ---
-- name: Copy bot source code
-  synchronize:
-    src: ../../../../
-    dest: "{{ bot_dir }}"
-    rsync_opts:
-      - "--exclude=.git"
-      - "--exclude=infra"
-      - "--exclude=.github"
 
-- name: Copy .env file
+- name: Ensure bot directory exists
+  file:
+    path: "{{ bot_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Clone bot repository
+  git:
+    repo: 'https://github.com/flightbee/bot.git'
+    dest: "{{ bot_dir }}"
+    version: main
+    force: yes
+
+
+- name: Synchronize .env file
   copy:
     src: ../../../../.env
     dest: "{{ bot_dir }}/.env"
+    owner: "{{ ansible_user }}"
+    mode: '0600'
+
+- name: Build and run Docker Compose
+  shell: |
+    cd {{ bot_dir }}
+    docker compose down || true
+    docker compose up -d --build
 
 - name: Restart bot container
   shell: |
