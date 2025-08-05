@@ -12,7 +12,7 @@
     path: "{{ bot_dir }}/docker-compose.yml"
   register: compose_file
 
-- name: Create .env file with Telegram token
+- name: Create base .env file with Telegram token
   copy:
     content: |
       TELEGRAM_BOT_TOKEN=8386506355:AAEW5kc-Qkz30mUxGkpWMSu4W8r3pmbRjpQ
@@ -20,22 +20,29 @@
     owner: "{{ ansible_user }}"
     mode: '0600'
 
-- name: Add additional env variables if local .env exists
-  block:
-    - name: Read local .env file
-      slurp:
-        src: "{{ lookup('env', 'HOME') }}/.env"
-      register: local_env
-      when: lookup('file', lookup('env', 'HOME') + '/.env') | length > 0
+- name: Check if local .env exists
+  stat:
+    path: "{{ env_file_path }}"
+  register: local_env_file
+  when: env_file_path is defined
 
-    - name: Append additional variables
-      copy:
-        content: "{{ local_env.content | b64decode }}"
-        dest: "{{ bot_dir }}/.env"
-        owner: "{{ ansible_user }}"
-        mode: '0600'
-      when: local_env.content is defined
-  when: lookup('file', lookup('env', 'HOME') + '/.env') | length > 0
+- name: Append additional variables from local .env
+  block:
+    - name: Read local .env content
+      command: cat "{{ env_file_path }}"
+      register: local_env_content
+      changed_when: false
+
+    - name: Append content to .env
+      lineinfile:
+        path: "{{ bot_dir }}/.env"
+        line: "{{ item }}"
+        create: no
+      loop: "{{ local_env_content.stdout_lines }}"
+      when: item | length > 0 and not item.startswith('#')
+  when:
+    - env_file_path is defined
+    - local_env_file.stat.exists
 
 - name: Build and run Docker containers
   community.docker.docker_compose:

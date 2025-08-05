@@ -43,3 +43,8 @@ variable "TELEGRAM_BOT_TOKEN" {
   description = "Telegram bot token"
   sensitive   = true
 }
+
+variable "env_file_path" {
+  type        = string
+  description = "Path to local .env file"
+}
