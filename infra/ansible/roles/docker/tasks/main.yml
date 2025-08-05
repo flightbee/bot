@@ -1,18 +1,8 @@
 ---
+
 - name: Ensure bot directory exists
   file:
     path: "{{ bot_dir }}"
     state: directory
     owner: "{{ ansible_user }}"
     mode: '0755'
-
----
-- name: Copy docker-compose.yml
-  copy:
-    src: ../../../../Docker-compose.yml
-    dest: "{{ bot_dir }}/docker-compose.yml"
-
-- name: Copy Dockerfile
-  copy:
-    src: ../../../../Dockerfile
-    dest: "{{ bot_dir }}/Dockerfile"
