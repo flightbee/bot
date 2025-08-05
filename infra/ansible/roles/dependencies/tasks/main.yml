@@ -5,6 +5,7 @@
       - docker.io
       - docker-compose
       - git
+      - python3-distutils
     state: present
     update_cache: yes
 
