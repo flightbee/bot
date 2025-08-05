@@ -37,3 +37,15 @@ variable "public_key" {
     type = string
     description = "ssh public_key"
 }
+
+variable "env_file_path" {
+  type        = string
+  description = "Path to local .env file"
+  default     = "~/.env"
+}
+
+variable "TELEGRAM_BOT_TOKEN" {
+  type        = string
+  description = "Telegram bot token"
+  sensitive   = true
+}

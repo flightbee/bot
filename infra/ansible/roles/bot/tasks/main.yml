@@ -17,17 +17,18 @@
     msg: "docker-compose.yml not found in {{ bot_dir }}"
   when: not compose_file.stat.exists
 
-- name: Synchronize .env file
+- name: Copy local .env to remote (from Terraform VM)
   copy:
-    src: ../../../../.env
+    src: "{{ playbook_dir }}/.env"  # Локальный .env (будет скопирован с Terraform VM)
     dest: "{{ bot_dir }}/.env"
     owner: "{{ ansible_user }}"
     mode: '0600'
 
-- name: Build and run Docker Compose
-  shell: |
-    cd {{ bot_dir }}
-    docker compose down || true
-    docker compose up -d --build
-  args:
-    executable: /bin/bash
+- name: Build and run Docker containers
+  community.docker.docker_compose:
+    project_src: "{{ bot_dir }}"
+    build: yes
+    pull: yes
+    restart: yes
+    remove_orphans: yes
+    state: present

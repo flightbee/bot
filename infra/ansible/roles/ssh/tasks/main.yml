@@ -1,4 +1,11 @@
 ---
+- name: Ensure .ssh directory exists
+  file:
+    path: /home/{{ ansible_user }}/.ssh
+    state: directory
+    mode: '0700'
+    owner: "{{ ansible_user }}"
+
 - name: Add SSH key
   authorized_key:
     user: "{{ ansible_user }}"
