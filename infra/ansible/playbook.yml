@@ -4,7 +4,7 @@
   become: true
   vars:
     bot_dir: /home/{{ ansible_user }}/bot
-    env_file_path: /path/to/your/env/file  # Укажите правильный путь к .env файлу
+    terraform_env_path: "/home/{{ ansible_user }}/.env"
   
   roles:
     - role: ssh
