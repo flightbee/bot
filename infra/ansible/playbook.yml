@@ -3,8 +3,8 @@
   hosts: all
   become: true
   vars:
-    bot_dir: /home/{{ ansible_user }}/bot
-    terraform_env_path: "/home/{{ ansible_user }}/bot/.env"
+    bot_dir: /opt/bot
+    terraform_env_path: "/opt/bot/.env"
   
   roles:
     - role: ssh

@@ -42,20 +42,20 @@
     state: present
 
 #- name: Stop and remove existing containers
-  community.docker.docker_compose:
-    project_src: "{{ bot_dir }}"
-    state: absent
-  ignore_errors: yes
+#  community.docker.docker_compose:
+#    project_src: "{{ bot_dir }}"
+#    state: absent
+#  ignore_errors: yes
 
 #- name: Build and start containers
-  community.docker.docker_compose:
-    project_src: "{{ bot_dir }}"
-    build: yes
-    pull: yes
-    remove_orphans: yes
-    state: present
+#  community.docker.docker_compose:
+#    project_src: "{{ bot_dir }}"
+#    build: yes
+#    pull: yes
+#    remove_orphans: yes
+#    state: present
 
 #- name: Ensure containers are restarted
-  community.docker.docker_compose:
-    project_src: "{{ bot_dir }}"
-    restarted: yes
+#  community.docker.docker_compose:
+#    project_src: "{{ bot_dir }}"
+#    restarted: yes   
