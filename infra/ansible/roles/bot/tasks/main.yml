@@ -12,19 +12,30 @@
     path: "{{ bot_dir }}/docker-compose.yml"
   register: compose_file
 
-- name: Copy .env file to server
+- name: Create .env file with Telegram token
   copy:
-    src: "{{ lookup('env', 'HOME') }}/.env"
+    content: |
+      TELEGRAM_BOT_TOKEN=8386506355:AAEW5kc-Qkz30mUxGkpWMSu4W8r3pmbRjpQ
     dest: "{{ bot_dir }}/.env"
-    remote_src: false
     owner: "{{ ansible_user }}"
     mode: '0600'
 
-- name: Set correct permissions for .env
-  file:
-    path: "{{ bot_dir }}/.env"
-    owner: "{{ ansible_user }}"
-    mode: '0600'
+- name: Add additional env variables if local .env exists
+  block:
+    - name: Read local .env file
+      slurp:
+        src: "{{ lookup('env', 'HOME') }}/.env"
+      register: local_env
+      when: lookup('file', lookup('env', 'HOME') + '/.env') | length > 0
+
+    - name: Append additional variables
+      copy:
+        content: "{{ local_env.content | b64decode }}"
+        dest: "{{ bot_dir }}/.env"
+        owner: "{{ ansible_user }}"
+        mode: '0600'
+      when: local_env.content is defined
+  when: lookup('file', lookup('env', 'HOME') + '/.env') | length > 0
 
 - name: Build and run Docker containers
   community.docker.docker_compose:
