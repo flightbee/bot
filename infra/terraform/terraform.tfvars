@@ -1,7 +1,7 @@
 project_id      = "course-461717"
 region          = "us-central1"
 zone            = "us-central1-c"
-credentials_json = "home/dmitri_torchilo/.credentials/course-461717-565c2bd76aba.json"
+credentials_json = "/home/dmitri_torchilo/.credentials/course-461717-565c2bd76aba.json"
 instance_name   = "bot_instance"
 machine_type    = "e2-medium"
 ssh_user        = "dmitri_torchilo"
