@@ -33,7 +33,7 @@
     owner: "{{ ansible_user }}"
     mode: '0600'
 
-#- name: Build and run Docker containers
+- name: Build and run Docker containers
   community.docker.docker_compose:
     project_src: "{{ bot_dir }}"
     build: yes
@@ -41,13 +41,13 @@
     remove_orphans: yes
     state: present
 
-- name: Stop and remove existing containers
+#- name: Stop and remove existing containers
   community.docker.docker_compose:
     project_src: "{{ bot_dir }}"
     state: absent
   ignore_errors: yes
 
-- name: Build and start containers
+#- name: Build and start containers
   community.docker.docker_compose:
     project_src: "{{ bot_dir }}"
     build: yes
@@ -55,7 +55,7 @@
     remove_orphans: yes
     state: present
 
-- name: Ensure containers are restarted (if needed)
+#- name: Ensure containers are restarted
   community.docker.docker_compose:
     project_src: "{{ bot_dir }}"
     restarted: yes
