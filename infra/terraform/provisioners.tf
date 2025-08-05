@@ -17,7 +17,7 @@ resource "null_resource" "run_ansible" {
   provisioner "local-exec" {
     command = <<EOT
       sleep 30
-      cd ../ansible && ansible-playbook -i inventory.ini deploy_bot.yml
+      cd ../ansible && ansible-playbook -i inventory.ini playbook.yml
     EOT
     interpreter = ["/bin/bash", "-c"]
   }
