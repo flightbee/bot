@@ -4,7 +4,7 @@
   become: true
   vars:
     bot_dir: /home/{{ ansible_user }}/bot
-    terraform_env_path: "/home/{{ ansible_user }}/.env"
+    terraform_env_path: "/home/{{ ansible_user }}/bot/.env"
   
   roles:
     - role: ssh
