@@ -5,6 +5,17 @@
     dest: "{{ bot_dir }}"
     version: main
     force: yes
+    recursive: yes
+
+- name: Verify docker-compose file exists
+  stat:
+    path: "{{ bot_dir }}/docker-compose.yml"
+  register: compose_file
+
+- name: Fail if docker-compose file not found
+  fail:
+    msg: "docker-compose.yml not found in {{ bot_dir }}"
+  when: not compose_file.stat.exists
 
 - name: Synchronize .env file
   copy:
@@ -16,4 +27,7 @@
 - name: Build and run Docker Compose
   shell: |
     cd {{ bot_dir }}
-    docker-compose up -d --build
+    docker compose down || true
+    docker compose up -d --build
+  args:
+    executable: /bin/bash
