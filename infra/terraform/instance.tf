@@ -5,7 +5,7 @@ resource "google_compute_instance" "vm_instance" {
 
     boot_disk {
         initialize_params {
-            image = "ubuntu-os-cloud/global/images/ubuntu-minimal-2404-noble-amd64-v20250710"
+            image = "ubuntu-os-cloud/ubuntu-minimal-2404-noble-amd64-v20250710"
         }
     }
 
