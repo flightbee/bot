@@ -5,6 +5,6 @@ credentials_json = "/home/dmitri_torchilo/.credentials/course-461717-565c2bd76ab
 instance_name   = "bot"
 machine_type    = "e2-medium"
 ssh_user        = "dmitri_torchilo"
-public_key      = "home/dmitri_torchilo/.ssh/id_ed25519.pub"
+public_key      = "/home/dmitri_torchilo/.ssh/id_ed25519.pub"
 env_file_path   = "/home/dmitri_torchilo/.env"
 TELEGRAM_BOT_TOKEN  = "8386506355:AAEW5kc-Qkz30mUxGkpWMSu4W8r3pmbRjpQ"

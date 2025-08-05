@@ -17,15 +17,13 @@
     msg: "docker-compose.yml not found in {{ bot_dir }}"
   when: not compose_file.stat.exists
 
-#- name: Transfer .env from Terraform VM to target
-#  shell: |
-#    ssh -i ~/.ssh/id_ed25519 \
-#      -o StrictHostKeyChecking=no \
-#      dmitri_torchilo@{{ terraform_vm_ip }} \
-#      "cat /home/dmitri_torchilo/bot/.env" > {{ bot_dir }}/.env
-#  args:
-#    executable: /bin/bash
-#  when: inventory_hostname != 'localhost'
+- name: Copy .env file to server
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/.env"
+    dest: "{{ bot_dir }}/.env"
+    remote_src: false
+    owner: "{{ ansible_user }}"
+    mode: '0600'
 
 - name: Set correct permissions for .env
   file:

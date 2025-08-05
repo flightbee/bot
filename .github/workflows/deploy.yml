@@ -63,7 +63,7 @@ jobs:
       
       - name: Deploy via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.GCP_USER }}@${{ env.EXTERNAL_IP }} << EOF
+          ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.GCP_USER }}@$IP << EOF
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
           docker compose -f ~/bot/docker-compose.yml down || true
           cd ~/bot

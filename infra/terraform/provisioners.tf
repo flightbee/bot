@@ -19,7 +19,7 @@ resource "null_resource" "run_ansible" {
       sleep 30
       cd ../ansible && ansible-playbook playbook.yml
     EOT
-    interpreter = ["/usr/bin/python3", "-c"]
+    interpreter = ["/bin/bash", "-c"]
   }
   depends_on = [null_resource.update_inventory]
 }
