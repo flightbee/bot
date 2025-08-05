@@ -7,7 +7,7 @@ resource "null_resource" "update_inventory" {
 
 resource "null_resource" "run_ansible" {
   provisioner "local-exec" {
-    command = "cd ../ansible && ansible-playbook playbook.yml"
+    command = "sleep 30 && cd ../ansible && ansible-playbook playbook.yml"
   }
   depends_on = [null_resource.update_inventory]
 }

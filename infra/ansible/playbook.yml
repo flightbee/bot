@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars:
-    bot_dir: /home/dmitri_torchilo/bot
+    bot_dir: /home/dmitri_torchilo/bot/
   
   roles:
     - role: ssh
