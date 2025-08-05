@@ -1,0 +1,8 @@
+project_id      = "course-461717"
+region          = "us-central1"
+zone            = "us-central1-c"
+credentials_json = "home/dmitri_torchilo/.credentials/credentials.json"
+instance_name   = "bot_instance"
+machine_type    = "e2-medium"
+ssh_user        = "dmitri_torchilo"
+public_key      = "home/dmitri_torchilo/.ssh/id_ed25519.pub"

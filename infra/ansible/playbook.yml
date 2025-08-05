@@ -1,0 +1,12 @@
+---
+- name: Deploy bot in Docker on remote server
+  hosts: all
+  become: true
+  vars:
+    bot_dir: /home/dmitri_torchilo/bot
+  
+  roles:
+    - role: ssh
+    - role: dependencies
+    - role: docker
+    - role: bot
