@@ -48,5 +48,5 @@
   community.docker.docker_compose_v2:
     project_src: "{{ bot_dir }}"
     build: yes
-    pull: yes
+    pull: always
     state: present
