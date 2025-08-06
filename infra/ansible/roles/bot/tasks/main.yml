@@ -47,6 +47,6 @@
 - name: Build and run Docker containers
   community.docker.docker_compose_v2:
     project_src: "{{ bot_dir }}"
-    build: true
-    pull: true
+    build: always
+    pull: always
     state: present
