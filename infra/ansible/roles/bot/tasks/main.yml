@@ -45,7 +45,7 @@
     - local_env_file.stat.exists
 
 - name: Build and run Docker containers
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ bot_dir }}"
     build: yes
     pull: yes
