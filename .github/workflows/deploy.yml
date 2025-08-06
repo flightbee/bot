@@ -72,7 +72,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.GCP_USER }}@$IP << EOF
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker compose -f ~/bot/docker-compose.yml down || true
+          docker compose -f ~/opt/bot/docker-compose.yml down || true
           cd ~/bot
           git pull origin main
           docker compose -f /opt/bot/docker-compose.yml up -d --build
