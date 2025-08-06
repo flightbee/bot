@@ -86,5 +86,5 @@ jobs:
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           message: |
-            ${{ job.status == 'success' && 'Деплой успешно завершен!' || 'Деплой завершился с ошибкой.' }}
-            Статус: ${{ job.status }}
+            ${{ job.status == 'success' && 'Deployment completed successfully!' || 'Deployment failed.' }}
+            Status: ${{ job.status }}
