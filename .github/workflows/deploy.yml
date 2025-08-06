@@ -72,10 +72,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.GCP_USER }}@$IP << EOF
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker compose -f ~/opt/bot/docker-compose.yml down || true
-          cd ~/bot
-          git pull origin main
-          docker compose -f /opt/bot/docker-compose.yml up -d --build
+          cd /opt/bot || mkdir -p /opt/bot && cd /opt/bot
+          git clone https://github.com/your-repo/bot.git . || git pull origin main
+          docker compose -f docker-compose.yml down || true
+          docker compose -f docker-compose.yml up -d --build
           EOF
       
       - name: Уведомление в Telegram о завершении деплоя
