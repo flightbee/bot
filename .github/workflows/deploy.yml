@@ -75,7 +75,7 @@ jobs:
           docker compose -f ~/bot/docker-compose.yml down || true
           cd ~/bot
           git pull origin main
-          docker compose -f ~/bot/docker-compose.yml up -d --build
+          docker compose -f /opt/bot/docker-compose.yml up -d --build
           EOF
       
       - name: Уведомление в Telegram о завершении деплоя
